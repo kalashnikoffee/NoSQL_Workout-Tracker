@@ -1,52 +1,28 @@
-//all routes respond to routes in api.js file
-const router = require("express").Router(); //-express methods
-const Workout = require("../models/workout.js");
+const path = require("path");
+//is this line necessary for this?
+const router = require("express").Router();
 
-//get all workouts from database
-router.get("/api/workouts", (req, res) => {
-  Workout.find()
-    .then(dbWorkout => {
-      res.json(dbWorkout);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+router.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"), err => {
+    if (err) throw err;
+  });
 });
 
-//update an existing workout, from tutor
-router.put("/api/workouts/:id", (req, res) => {
-  Workout.findOneAndUpdate(
-    { _id: req.params.id },
-    { $push: { exercises: req.body } }
-  )
-    .then(dbWorkout => {
-      res.json(dbWorkout);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+router.get("/exercise", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/exercise.html"), err => {
+    if (err) throw err;
+  });
 });
 
-//create a new workout
-router.post("/api/workouts", ({ body }, res) => {
-  Workout.create(body)
-    .then(dbWorkout => {
-      res.json(dbWorkout);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+router.get("/stats", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/stats.html"), err => {
+    if (err) throw err;
+  });
 });
 
-//what does this do?
-router.get("/api/workouts/range", (req, res) => {
-  Workout.find()
-    .then(dbWorkout => {
-      res.json(dbWorkout);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
+//is this right?
+//   router.get("/exercise?", (req, res) => {
+//     res.sendFile(path.join(_dirname, "../public/exercise.html"));
+//   })
 
 module.exports = router;
