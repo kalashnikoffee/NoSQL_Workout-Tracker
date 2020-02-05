@@ -12,10 +12,10 @@ app.use(express.static("public"));
 
 // const db = require('./app/models');
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness", { useNewUrlParser: true });
-
 require("./app/routes/api-routes.js")(app);
 require("./app/routes/html-routes.js")(app);
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness", { useNewUrlParser: true });
 
 //Uncomment Line 21 to create demo data
 // require('./seeders/seed.js')(db);
