@@ -1,33 +1,59 @@
-//dependencies 
+// //dependencies 
+// const express = require("express");
+// const mongoose = require("mongoose");
+// // const dotenv = require("dotenv");
+
+// // Sets up the Express App
+// const app = express();
+// const PORT = process.env.PORT || 8080;
+
+// // Sets up the Express app to handle data parsing
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+
+// // Static directory
+// app.use(express.static("public"));
+
+// // mongoose.connect(process.env.MONGODB_URI || "mongodb://jiahuiwang:1990Lucky@ds315359.mlab.com:15359/heroku_3s1j9x2z", {
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout"
+// mongoose.connect(MONGODB_URI, {
+// useNewUrlParser: true,
+//   useFindAndModify: false
+// });
+
+// // Requiring our models for syncing
+// const db = require("./app/models");
+
+// // Routes---app.use
+// app.use(require("./App/routes/api-routes.js"));
+// app.use(require("./App/routes/html-routes.js"));
+
+// app.listen(PORT, () => {
+//     console.log(`App running on port ${PORT}!`);
+//   });
+
 const express = require("express");
 const mongoose = require("mongoose");
-// const dotenv = require("dotenv");
+const logger = require("morgan");
 
-// Sets up the Express App
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
-// Sets up the Express app to handle data parsing
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Static directory
 app.use(express.static("public"));
 
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://jiahuiwang:1990Lucky@ds315359.mlab.com:15359/heroku_3s1j9x2z", {
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout"
-mongoose.connect(MONGODB_URI, {
-useNewUrlParser: true,
-  useFindAndModify: false
-});
+const db = require('./app/models');
 
-// Requiring our models for syncing
-const db = require("./app/models");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness", { useNewUrlParser: true });
 
-// Routes---app.use
-app.use(require("./App/routes/api-routes.js"));
-app.use(require("./App/routes/html-routes.js"));
+require("./app/routes/apiRoutes.js")(app);
+require("./app/routes/htmlRoutes.js")(app);
+
+//Uncomment Line 21 to create demo data
+// require('./seeders/seed.js')(db);
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
-  });
+});
