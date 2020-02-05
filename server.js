@@ -14,8 +14,8 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness", { useNewUrlParser: true });
 
-require("./app/routes/apiRoutes.js")(app);
-require("./app/routes/htmlRoutes.js")(app);
+require("./app/routes/api-routes.js")(app);
+require("./app/routes/html-routes.js")(app);
 
 //Uncomment Line 21 to create demo data
 // require('./seeders/seed.js')(db);
