@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static directory
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://jiahuiwang:1990Lucky@ds315359.mlab.com:15359/heroku_3s1j9x2z", {
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout"
@@ -22,11 +22,11 @@ useNewUrlParser: true,
 });
 
 // Requiring our models for syncing
-// const db = require("./models");
+const db = require("./app/models");
 
 // Routes---app.use
-app.use(require("./routes/api-routes.js"));
-app.use(require("./routes/html-routes.js"));
+app.use(require("./App/routes/api-routes.js"));
+app.use(require("./App/routes/html-routes.js"));
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
