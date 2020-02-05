@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static directory
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 // mongoose.connect(process.env.MONGODB_URI || "mongodb://jiahuiwang:1990Lucky@ds315359.mlab.com:15359/heroku_3s1j9x2z", {
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout"
