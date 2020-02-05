@@ -22,7 +22,7 @@ useNewUrlParser: true,
 });
 
 // Requiring our models for syncing
-const db = require("./models");
+// const db = require("./models");
 
 // Routes---app.use
 app.use(require("./routes/api-routes.js"));
